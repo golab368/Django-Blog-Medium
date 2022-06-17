@@ -1,0 +1,25 @@
+{% for article in page_obj %}
+<div class="card col-sm-12 mb-3">
+    <div class="card">
+        <div class="card-header" style="background-color: #ffffff;">
+            {% for k,v in dictionary.items %}
+            {% if article.article_author.id == k  %}
+            <img class="rounded" src="{{v}}" alt="Your profile photo" width="40">
+            {% else %}
+            <img class="" src="https://conference.pecb.com/wp-content/uploads/2017/10/no-profile-picture.jpg" width="40"
+                alt="No profile photo">
+            {% endif %}
+            {% endfor %}
+            {{article.article_author.first_name}} {{article.article_author.last_name}}
+            <p class="mb-auto text-muted">{{article.timestamp}}</p>
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">{{article.headline}}</a></h3>
+            <p class="card-text">{{article.article_content}}</p>
+            {% if  user.is_authenticated %}
+            <a href="{% url 'article_detail' pk=article.pk %}" class="btn btn-outline-dark">Detail View</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}

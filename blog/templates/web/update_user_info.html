@@ -1,0 +1,21 @@
+{% extends "web/layout.html" %}
+{% block body %}
+<br>
+{% load crispy_forms_tags %}
+<div class="card">
+    <div class="card-header">
+      Update your profile info:
+    </div>
+    <div class="card-body">
+      <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{user_form|crispy}}
+                {{profile_form|crispy}}
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+      {% endblock %}

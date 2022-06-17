@@ -1,0 +1,7 @@
+<div>
+  <p>Common Tags:
+    {% for t in common_tags %}
+    <a href="{% url 'tagged' t.slug %}">#{{t}}</a>
+    {% endfor %}
+  </p>
+</div>

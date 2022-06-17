@@ -1,0 +1,41 @@
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a href="{% url 'home' %}" class="navbar-brand">Medium</a>
+    {% if user.is_authenticated %}
+    <ul class="nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a href="{% url 'create_article' %}" class="nav-link active text-white"><i class="bi bi-pencil-square"></i>
+          Write</a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'written_stories' %}" class="nav-link active text-white"><i class="bi bi-card-text"></i>Written
+          Stories</a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'profile' %}" class="nav-link active text-white"><i class="bi bi-person-circle"></i>Profile</a>
+      </li>
+    </ul>
+    {% endif %}
+    
+    <ul class="nav justify-content-end">
+      {% if not user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link active text-white" aria-current="page" href="#">Our story</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link text-white" href="{% url 'login_view' %}">Sign in</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-secondary" href="{% url 'register' %}">Get started</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link active text-white" aria-current="page" href="{% url 'our_story' %}">Our story</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-secondary" href="{% url 'logout_view' %}">Log out</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

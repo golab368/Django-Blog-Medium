@@ -1,0 +1,104 @@
+<div class="col-md-12 card mb-4 mt-3 ">
+    <div class="card">
+        <div class="card-body">
+            {% if article.article_links %}
+            <img src="{{article.article_links}}" class="rounded mx-auto d-block" style="width:50%;" alt="...">
+            {% endif %}
+            <h3 class="card-title">{{article.headline}}</h3>
+            <p class="card-text">{{article.article_content}}</p>
+            <p class="mb-auto">{{article.article_image_upload}}</p>
+            <br>
+            <br>
+            <div class="d-flex">
+                <div class="p-2 flex-grow-2">
+                    <form action="{% url 'like' article.pk %}" method="POST">
+                        {% csrf_token %}
+                        {% if liked %}
+                        <button class="btn btn-danger position-relative" type="submit" id="like" name="article_id"
+                            value="{{article.id}}">
+                            <i class="bi bi-hand-thumbs-down">
+                            </i>
+                        </button>
+                        {% else %}
+                        <button class="btn btn-primary position-relative" type="submit" id="like" name="article_id"
+                            value="{{article.id}}">
+                            <i class="bi bi-hand-thumbs-up">
+                            </i>
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {% with likes.count as total_likes %}
+                                {{ total_likes }}
+                                {% endwith %}
+                            </span>
+                        </button>
+                        {% endif %}
+                    </form>
+                </div>
+
+                <div class="p-2 flex-grow-1">
+                    <form action="{% url 'follow' article.pk  %}" method="POST">
+                        {% csrf_token %}
+                        {% if follow_checker and article.article_author.id != request.user.id %}
+                        <button class="btn btn-danger" type="submit" name="article_writer_id"
+                            value="{{article.article_author.id}}">
+                            Un-Follow
+                        </button>
+                        {% else %}
+                        <button class="btn btn-primary" type="submit" name="article_writer_id"
+                            value="{{article.article_author.id}}">
+                            Follow
+                        </button>
+                        {% endif %}
+                    </form>
+                </div>
+
+                <div class="p-2">
+                    <p>Created by:
+                        {% for k,v in dictionary.items %}
+                        {% if article.article_author.id == k  %}
+                        <img src="{{v}}" class="rounded" alt="Your profile photo" width="40">
+                        {% else %}
+                        <img src="https://conference.pecb.com/wp-content/uploads/2017/10/no-profile-picture.jpg"
+                            width="40" alt="No profile photo">
+                        {% endif %}
+                        {% endfor %}
+                        {{article.article_author.first_name}} {{article.article_author.last_name}}
+                    </p>
+                </div>
+                {% if request.user == article.article_author %}
+                <div class="p-2">
+                    <a class="btn btn-primary" type="submit" href="{% url 'edit_article' pk=article.pk %}"
+                        id="edit_form">
+                        Edit
+                    </a>
+                </div>
+                <div class="p-2">
+                    <form action="{% url 'delete' %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit" name="article_id" value="{{ article.pk }}">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            
+        
+        <br><br>
+
+                                                                <div class="d-flex">
+                                                                    <div class="p-2 flex-grow-1">
+                                                                        Tags:
+                                                                        {% for t in article.tag.all %}
+                                                                        <a href="{% url 'tagged' t.slug %}">#{{ t }}</a>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    <div class="p-2">
+                                                                        <p class="card-link text-muted">{{article.timestamp}} </p>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+    </div>
+</div>

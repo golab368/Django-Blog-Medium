@@ -1,0 +1,12 @@
+{% extends "web/layout.html" %}
+{% block body %}
+{% load crispy_forms_tags %}
+<div class="container pt-5">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{form|crispy}}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

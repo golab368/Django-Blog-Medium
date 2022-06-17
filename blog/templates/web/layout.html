@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Menu Medium{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+  <link href="/static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  {% include 'web/navbar_home.html' %}
+  {% include 'web/messages.html' %}
+
+  {% if not user.is_authenticated %}
+  <div class="p-5 my-4 bg-light rounded-3">
+    <h1>Stay curious.</h1>
+    <p class="lead">Discover stories, thinking, and expertise from writers on any topic.</p>
+    <p><button type="button" class="btn btn-dark" href="{% url 'register' %}">Get started today</button></p>
+  </div>
+  {% endif %}
+
+  <div class="container">
+    {% block body %}
+    {% endblock %}
+  </div>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    window.setTimeout(function () {
+      $(".alert").fadeTo(1000, 0).slideUp(1000, function () {
+        $(this).remove();
+      });
+    }, 1000);
+  </script>
+</body>
+
+</html>

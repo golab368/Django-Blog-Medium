@@ -1,0 +1,78 @@
+{% extends "web/layout.html" %}
+{% block body %}
+<br>
+{% if user_info %}
+<div class="card mb-3" style="max-width: 100%;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      {% for info in user_info %}
+      {% if info.user_photo %}
+      <img src="{{info.user_photo}}" class="img-thumbnail" alt="Your profile photo">
+      {% else %}
+      <img src="https://conference.pecb.com/wp-content/uploads/2017/10/no-profile-picture.jpg" class="img-thumbnail"
+        alt="No profile photo">
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Username: {{request.user}}</h5>
+        <h2 class="card-title">{{request.user.first_name}} {{request.user.last_name}}</h2>
+        {% if info.about_user %}
+        <p class="card-text">{{ info.about_user }}</p>
+        {% else %}
+        <p class="card-text">Tell the world about yourself</p>
+        <p class="card-text"><small class="text-muted">Heres where you can share more about yourself: your history, work
+            experience, accomplishments, interests, dreams, and more. You can even add images and use rich text to
+            personalize your bio.</small></p>
+        {% endif %}
+      </div>
+      <div class="d-flex">
+        <div class="p-2 flex-grow-1">
+          <a href="{% url 'edit_user_info' %}" class="btn btn-primary">Update profile</a>
+        </div>
+        <div class="p-2">
+          <p class="text-muted"><i class="bi bi-person-hearts"></i> Followers
+            {{user_followers}}</p>
+        </div>
+        <div class="p-2">
+          <p class="text-muted"><i class="bi bi-person-hearts"></i> You Follow {{user_follow|length}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="card mb-3" style="max-width: 100%;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="https://conference.pecb.com/wp-content/uploads/2017/10/no-profile-picture.jpg" class="img-thumbnail"
+        alt="No profile photo">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Username: {{request.user}}</h5>
+        <h2 class="card-title">{{request.user.first_name}} {{request.user.last_name}}</h2>
+
+        <p class="card-text">Tell the world about yourself</p>
+        <p class="card-text"><small class="text-muted">Heres where you can share more about yourself: your history, work
+            experience, accomplishments, interests, dreams, and more. You can even add images and use rich text to
+            personalize your bio.</small></p>
+      </div>
+      <div class="d-flex">
+        <div class="p-2 flex-grow-1">
+          <a href="{% url 'create_user_info' %}" class="btn btn-primary">Write profil info</a>
+        </div>
+        <div class="p-2">
+          <p class="text-muted"><i class="bi bi-person-hearts"></i> Followers
+            {{user_followers}}</p>
+        </div>
+        <div class="p-2">
+          <p class="text-muted"><i class="bi bi-person-hearts"></i> You Follow {{user_follow|length}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

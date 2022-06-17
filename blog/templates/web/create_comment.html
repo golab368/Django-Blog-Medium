@@ -1,0 +1,20 @@
+{% load crispy_forms_tags %}
+<div class="col-md-12 card mb-4  mt-3 ">
+    <div class="card">
+        <div class="card-body">
+            {% if new_comment %}
+            <div class="alert alert-success" role="alert">
+                Your comment was successfully added!
+            </div>
+            {% else %}
+            <h3>Leave a comment</h3>
+            <form method="post" style="margin-top: 1.3em;">
+                {{ comment_form | crispy }}
+                {% csrf_token %}
+                <br>
+                <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{% extends "web/layout.html" %}
+{% block body %}
+<br>
+{% if page_obj %}
+
+{% include "web/tags.html" %}
+{% include "web/article_view.html" %}
+{% include "web/pagination.html" %}
+
+{% else %}
+<h1>No Articles</h1>
+{% endif %}
+
+{% endblock %}
