@@ -20,7 +20,7 @@
     <ul class="nav justify-content-end">
       {% if not user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link active text-white" aria-current="page" href="#">Our story</a>
+        <a class="nav-link active text-white" aria-current="page" href="{% url 'our_story' %}">Our story</a>
       </li>
       <li class="nav-item ">
         <a class="nav-link text-white" href="{% url 'login_view' %}">Sign in</a>
