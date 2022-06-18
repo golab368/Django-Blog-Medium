@@ -10,12 +10,9 @@
             {% for comment in comments %}
             <div class="card-body" style="width: 50%;">
                 <h5 class="card-title">Created by:
-                    {% for k,v in dictionary.items %}
-                    {% if info.profile.id == comment.user.id %}
-                    <img src="{{v}}" class="rounded mx-auto d-block" alt="Your profile photo" width="40">
-                    {% else %}
-                    <img src="https://conference.pecb.com/wp-content/uploads/2017/10/no-profile-picture.jpg" width="40"
-                        alt="No profile photo">
+                    {% for i in all_users %}
+                    {% if i.profile.id == article.article_author.id  %}
+                    <img class="rounded" src="{{i.user_photo }}" alt="Your profile photo" width="40">
                     {% endif %}
                     {% endfor %}
                     {{ comment.user }}

@@ -54,12 +54,9 @@
 
                 <div class="p-2">
                     <p>Created by:
-                        {% for k,v in dictionary.items %}
-                        {% if article.article_author.id == k  %}
-                        <img src="{{v}}" class="rounded" alt="Your profile photo" width="40">
-                        {% else %}
-                        <img src="https://conference.pecb.com/wp-content/uploads/2017/10/no-profile-picture.jpg"
-                            width="40" alt="No profile photo">
+                        {% for i in all_users %}
+                        {% if i.profile.id == article.article_author.id  %}
+                        <img class="rounded" src="{{i.user_photo }}" alt="Your profile photo" width="40">
                         {% endif %}
                         {% endfor %}
                         {{article.article_author.first_name}} {{article.article_author.last_name}}

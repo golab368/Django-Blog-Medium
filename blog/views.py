@@ -17,7 +17,6 @@ from .models import User, Article, UserProfile, Follow
 from .forms import ArticleForm, CommentForm, UserForm, UserProfileForm
 from taggit.models import Tag
 
-
 def home(request):
     articles = (
         Article.objects.filter().order_by("-timestamp")
@@ -29,24 +28,10 @@ def home(request):
     page_obj = paginator.get_page(page_number)
     common_tags = Article.tag.most_common()[:5]
 
-    keys_list = []
-    values_list = []
-    
-    for a in articles:
-        has_a_photo = UserProfile.objects.filter(profile=a.article_author.id)
-        for i in has_a_photo:
-            if i.profile.id == a.article_author.id:
-                keys_list.append(int(a.article_author.id))
-                values_list.append(i.user_photo)
-
-    zip_iterator = zip(keys_list, values_list)
-    dictionary = dict(zip_iterator)
-    print(dictionary)
     context = {
         "page_obj": page_obj,
         "common_tags": common_tags,
         "all_users": all_users,
-        "dictionary": dictionary,
     }
 
     return render(request, "web/home.html", context)
@@ -119,19 +104,6 @@ def article_detail(request, pk):
     likes = article.likes.filter()
     all_users = UserProfile.objects.all()
 
-    keys_list = []
-    values_list = []
-    
-    for a in Article.objects.all():
-        has_a_photo = UserProfile.objects.filter(profile=a.article_author.id)
-        for i in has_a_photo:
-            if i.profile.id == a.article_author.id:
-                keys_list.append(int(a.article_author.id))
-                values_list.append(i.user_photo)
-
-    zip_iterator = zip(keys_list, values_list)
-    dictionary = dict(zip_iterator)
-
     new_comment = None
     liked = False
     if article.likes.filter(id=request.user.id).exists():
@@ -160,8 +132,6 @@ def article_detail(request, pk):
         'liked': liked,
         'follow_checker': follow_checker,
         "all_users": all_users,
-        "dictionary": dictionary,
-
     }
 
     return render(request, 'web/article_detail_view.html', context)

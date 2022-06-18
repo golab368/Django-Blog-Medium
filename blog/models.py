@@ -10,21 +10,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class User(AbstractUser):
     pass
 
-
-class UserProfile(models.Model):
-    profile = models.ForeignKey(User, on_delete=models.CASCADE)
-    about_user = models.CharField(blank=True, max_length=255)
-    user_photo = models.URLField(blank=True, max_length=300)
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "profile": self.profile,
-            "about_user": self.about_user,
-            "user_photo": self.user_photo,
-        }
-
-
 class Article(models.Model):
     headline = models.CharField(max_length=100)
     article_content = models.CharField(max_length=10000)
@@ -47,10 +32,24 @@ class Article(models.Model):
             "article_image_upload": self.article_image_upload,
             "tag": self.tag,
             "likes": self.likes,
+            "access_photos": self.access_photos,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
 
         }
 
+class UserProfile(models.Model):
+    profile = models.ForeignKey(User, on_delete=models.CASCADE)
+    about_user = models.CharField(blank=True, max_length=255)
+    user_photo = models.URLField(blank=True, max_length=300)
+    articles_instance = models.ManyToManyField(Article, related_name="articles_instance")
+    def serialize(self):
+        return {
+            "id": self.id,
+            "profile": self.profile,
+            "about_user": self.about_user,
+            "user_photo": self.user_photo,
+            "articles_instance": self.articles_instance,
+        }
 
 class Comment(models.Model):
     article = models.ForeignKey(
