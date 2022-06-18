@@ -9,7 +9,7 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ("headline", "article_content","article_links","article_image_upload","tag")
+        fields = ("headline", "article_content","article_photos","yt_links","article_image_upload","tag")
 
 class CommentForm(forms.ModelForm):
     class Meta:

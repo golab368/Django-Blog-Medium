@@ -14,7 +14,8 @@ class Article(models.Model):
     headline = models.CharField(max_length=100)
     article_content = models.CharField(max_length=10000)
     article_author = models.ForeignKey(User, on_delete=models.CASCADE)
-    article_links = models.URLField(blank=True, max_length=300)
+    article_photos = models.URLField(blank=True, max_length=300)
+    yt_links = models.URLField(blank=True, max_length=300)
     article_image_upload = models.ImageField(blank=True, upload_to="images/")
     slug = models.SlugField(null=True, unique=True, max_length=100)
     tag = TaggableManager(blank=True)
@@ -31,6 +32,7 @@ class Article(models.Model):
             "article_links": self.article_links,
             "article_image_upload": self.article_image_upload,
             "tag": self.tag,
+            "yt_links": self.yt_links,
             "likes": self.likes,
             "access_photos": self.access_photos,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
