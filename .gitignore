@@ -7,4 +7,3 @@ tests
 htmlcov
 .coverage
 db.sqlite3
-migrations
