@@ -99,10 +99,7 @@ https://django-medium.herokuapp.com/
 
 <picture>
   <img alt="" src="https://i.ibb.co/XyzTgdM/rsz-1.jpg">
-
 </picture>
-
 <picture>
-
   <img alt="" src="https://i.ibb.co/QMRCGNh/rsz-2.jpg">
 </picture>
